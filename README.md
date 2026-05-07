@@ -3,7 +3,7 @@
 Companion code for the paper
 
 > *When Drift Breaks: Distributional Shape Deformation as a Crisis Detector*
-> Lutz Plümer (2026), ICCF26 Oxford.
+> Lutz Plümer (2026), manuscript under preparation.
 
 The repository contains the full pipeline used to produce the main result table of the paper, plus the data needed to reproduce it from a public source.
 
@@ -74,11 +74,10 @@ Data redistributed from Yahoo Finance under their terms of use.
 ## Citation
 
 ```bibtex
-@inproceedings{pluemer2026drift,
-  author    = {Plümer, Lutz},
-  title     = {When Drift Breaks: Distributional Shape Deformation as a Crisis Detector},
-  booktitle = {Proceedings of the 26th International Conference on Computational Finance (ICCF26)},
-  year      = {2026},
-  address   = {Oxford, UK}
+@unpublished{pluemer2026drift,
+  author = {Plümer, Lutz},
+  title  = {When Drift Breaks: Distributional Shape Deformation as a Crisis Detector},
+  year   = {2026},
+  note   = {Manuscript under preparation}
 }
 ```
