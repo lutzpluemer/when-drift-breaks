@@ -9,23 +9,24 @@ The repository contains the full pipeline used to produce the main result table 
 
 ## What is in here
 
-when-drift-breaks/
-├── teiresias/         Core Python package
-│   ├── features.py            distributional shape features
-│   ├── loss_dynamics.py       drawdown / time-in-drawdown / tail rate
-│   ├── spectral.py            cross-sectional eigenvalue features
-│   ├── clustering.py          k-means + Viterbi label generation
-│   ├── observation.py         k-NN observation model
-│   ├── particle_filter.py     Rao-Blackwellized particle filter
-│   ├── regimes.py             7-regime taxonomy
-│   ├── transitions.py         HSMM transition matrix
-│   ├── evaluation.py          TPR / FPR / lead-time metrics
-│   └── data.py                multi-source data loading
-├── reproduce/
-│   └── reproduce_main_results.py   end-to-end pipeline
-├── data/
-│   └── yahoo/                 SPY, SKEW, 9 sector ETFs (Yahoo Finance)
-└── pyproject.toml
+## What is in here
+
+- `teiresias/` — Core Python package
+  - `features.py` — distributional shape features
+  - `loss_dynamics.py` — drawdown / time-in-drawdown / tail rate
+  - `spectral.py` — cross-sectional eigenvalue features
+  - `clustering.py` — k-means + Viterbi label generation
+  - `observation.py` — k-NN observation model
+  - `particle_filter.py` — Rao-Blackwellized particle filter
+  - `regimes.py` — 7-regime taxonomy
+  - `transitions.py` — HSMM transition matrix
+  - `evaluation.py` — TPR / FPR / lead-time metrics
+  - `data.py` — multi-source data loading
+- `reproduce/`
+  - `reproduce_main_results.py` — end-to-end pipeline
+- `data/`
+  - `yahoo/` — SPY, SKEW, 9 sector ETFs (Yahoo Finance)
+- `pyproject.toml`
 
 ## Quickstart
 
