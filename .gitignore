@@ -228,7 +228,6 @@ __marimo__/
 # Local data caches not suitable for version control
 data/eodhd/
 data/_finalized/
-data/seed_results/
 *.parquet.bak
 
 # Notebook outputs (clear before commit)

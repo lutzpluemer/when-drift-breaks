@@ -1,0 +1,354 @@
+{
+  "timestamp": "20260505_1334",
+  "n_particles": 2000,
+  "n_seeds": 10,
+  "seeds": [
+    42,
+    7,
+    13,
+    99,
+    123,
+    256,
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "mode": "A \u2014 Karte fix (seed=42), nur PF variiert",
+  "shape": [
+    {
+      "prepeak_china_2015": 0.8686528381726784,
+      "prepeak_covid": 0.9967428572890934,
+      "prepeak_inflation_2022": 0.9990407118681387,
+      "prepeak_hormuz_2025": 0.9998427504902022,
+      "fpr_pct": 40.605027694929696,
+      "tpr_pct": 72.39999999999999,
+      "tpr_minus_fpr": 31.794972305070296,
+      "fpr_2017_pct": 0.0,
+      "seed": 42
+    },
+    {
+      "prepeak_china_2015": 0.9092455307890809,
+      "prepeak_covid": 0.997943381006875,
+      "prepeak_inflation_2022": 0.9989714865384399,
+      "prepeak_hormuz_2025": 0.9998591744636739,
+      "fpr_pct": 40.34938219002983,
+      "tpr_pct": 72.39999999999999,
+      "tpr_minus_fpr": 32.05061780997016,
+      "fpr_2017_pct": 1.1952191235059761,
+      "seed": 7
+    },
+    {
+      "prepeak_china_2015": 0.8815273568981703,
+      "prepeak_covid": 0.9968224019744876,
+      "prepeak_inflation_2022": 0.9991087245948556,
+      "prepeak_hormuz_2025": 0.9998456678831643,
+      "fpr_pct": 40.178951853429915,
+      "tpr_pct": 72.39999999999999,
+      "tpr_minus_fpr": 32.22104814657008,
+      "fpr_2017_pct": 0.0,
+      "seed": 13
+    },
+    {
+      "prepeak_china_2015": 0.9022494397914979,
+      "prepeak_covid": 0.9967433268639381,
+      "prepeak_inflation_2022": 0.9989186428541708,
+      "prepeak_hormuz_2025": 0.9997961788533382,
+      "fpr_pct": 39.83809118023008,
+      "tpr_pct": 72.6,
+      "tpr_minus_fpr": 32.761908819769914,
+      "fpr_2017_pct": 0.0,
+      "seed": 99
+    },
+    {
+      "prepeak_china_2015": 0.8942546205763651,
+      "prepeak_covid": 0.9976793800827628,
+      "prepeak_inflation_2022": 0.9992343941833414,
+      "prepeak_hormuz_2025": 0.999823435584886,
+      "fpr_pct": 40.05112910097998,
+      "tpr_pct": 72.39999999999999,
+      "tpr_minus_fpr": 32.348870899020014,
+      "fpr_2017_pct": 0.0,
+      "seed": 123
+    },
+    {
+      "prepeak_china_2015": 0.8969238932807955,
+      "prepeak_covid": 0.9970975222461163,
+      "prepeak_inflation_2022": 0.9991992487892174,
+      "prepeak_hormuz_2025": 0.9998485839210794,
+      "fpr_pct": 39.369407754580315,
+      "tpr_pct": 72.6,
+      "tpr_minus_fpr": 33.23059224541968,
+      "fpr_2017_pct": 0.0,
+      "seed": 256
+    },
+    {
+      "prepeak_china_2015": 0.8966938554943396,
+      "prepeak_covid": 0.9965383758575208,
+      "prepeak_inflation_2022": 0.9992549752366029,
+      "prepeak_hormuz_2025": 0.9998351228432089,
+      "fpr_pct": 40.05112910097998,
+      "tpr_pct": 72.6,
+      "tpr_minus_fpr": 32.54887089902002,
+      "fpr_2017_pct": 1.1952191235059761,
+      "seed": 512
+    },
+    {
+      "prepeak_china_2015": 0.864114675028215,
+      "prepeak_covid": 0.9964887983869656,
+      "prepeak_inflation_2022": 0.9990334813443779,
+      "prepeak_hormuz_2025": 0.9998841725480275,
+      "fpr_pct": 39.454622922880276,
+      "tpr_pct": 72.0,
+      "tpr_minus_fpr": 32.545377077119724,
+      "fpr_2017_pct": 0.0,
+      "seed": 1024
+    },
+    {
+      "prepeak_china_2015": 0.8924055667776924,
+      "prepeak_covid": 0.9956996642600575,
+      "prepeak_inflation_2022": 0.9988771857841278,
+      "prepeak_hormuz_2025": 0.9998446007774364,
+      "fpr_pct": 39.88069876438006,
+      "tpr_pct": 72.6,
+      "tpr_minus_fpr": 32.71930123561994,
+      "fpr_2017_pct": 0.0,
+      "seed": 2048
+    },
+    {
+      "prepeak_china_2015": 0.8913067652244041,
+      "prepeak_covid": 0.997590690650905,
+      "prepeak_inflation_2022": 0.9990303032341187,
+      "prepeak_hormuz_2025": 0.9998003948134873,
+      "fpr_pct": 40.605027694929696,
+      "tpr_pct": 72.2,
+      "tpr_minus_fpr": 31.594972305070307,
+      "fpr_2017_pct": 4.382470119521913,
+      "seed": 4096
+    }
+  ],
+  "shape_skew": [
+    {
+      "prepeak_china_2015": 0.7943652943831976,
+      "prepeak_covid": 0.9890836023187738,
+      "prepeak_inflation_2022": 0.9992232807675745,
+      "prepeak_hormuz_2025": 0.9998205883743205,
+      "fpr_pct": 38.09118023008096,
+      "tpr_pct": 72.0,
+      "tpr_minus_fpr": 33.90881976991904,
+      "fpr_2017_pct": 0.0,
+      "seed": 42
+    },
+    {
+      "prepeak_china_2015": 0.7577909641598801,
+      "prepeak_covid": 0.9971268991991056,
+      "prepeak_inflation_2022": 0.9990980606478054,
+      "prepeak_hormuz_2025": 0.9998832335391017,
+      "fpr_pct": 37.57988922028121,
+      "tpr_pct": 71.8,
+      "tpr_minus_fpr": 34.22011077971879,
+      "fpr_2017_pct": 0.0,
+      "seed": 7
+    },
+    {
+      "prepeak_china_2015": 0.7964511987038193,
+      "prepeak_covid": 0.9965071284134376,
+      "prepeak_inflation_2022": 0.9993058564511077,
+      "prepeak_hormuz_2025": 0.999809767214975,
+      "fpr_pct": 37.750319556881124,
+      "tpr_pct": 72.0,
+      "tpr_minus_fpr": 34.249680443118876,
+      "fpr_2017_pct": 0.0,
+      "seed": 13
+    },
+    {
+      "prepeak_china_2015": 0.7750553060333364,
+      "prepeak_covid": 0.9968549529621877,
+      "prepeak_inflation_2022": 0.9992471486563923,
+      "prepeak_hormuz_2025": 0.9998731710252893,
+      "fpr_pct": 37.83553472518108,
+      "tpr_pct": 71.8,
+      "tpr_minus_fpr": 33.96446527481892,
+      "fpr_2017_pct": 0.0,
+      "seed": 99
+    },
+    {
+      "prepeak_china_2015": 0.7728639442675205,
+      "prepeak_covid": 0.9965119329768075,
+      "prepeak_inflation_2022": 0.999071021003623,
+      "prepeak_hormuz_2025": 0.9998482923190738,
+      "fpr_pct": 37.7929271410311,
+      "tpr_pct": 71.8,
+      "tpr_minus_fpr": 34.0070728589689,
+      "fpr_2017_pct": 0.0,
+      "seed": 123
+    },
+    {
+      "prepeak_china_2015": 0.7576635685491515,
+      "prepeak_covid": 0.9955247462491114,
+      "prepeak_inflation_2022": 0.9993357538881431,
+      "prepeak_hormuz_2025": 0.999902253667758,
+      "fpr_pct": 37.87814230933106,
+      "tpr_pct": 71.6,
+      "tpr_minus_fpr": 33.721857690668934,
+      "fpr_2017_pct": 0.0,
+      "seed": 256
+    },
+    {
+      "prepeak_china_2015": 0.7866118134387978,
+      "prepeak_covid": 0.9901900183798307,
+      "prepeak_inflation_2022": 0.9992228098656548,
+      "prepeak_hormuz_2025": 0.9998346417747065,
+      "fpr_pct": 38.048572645930975,
+      "tpr_pct": 72.0,
+      "tpr_minus_fpr": 33.951427354069025,
+      "fpr_2017_pct": 0.0,
+      "seed": 512
+    },
+    {
+      "prepeak_china_2015": 0.7409530433526836,
+      "prepeak_covid": 0.9908761959570628,
+      "prepeak_inflation_2022": 0.9991061891399997,
+      "prepeak_hormuz_2025": 0.9998404194899255,
+      "fpr_pct": 38.048572645930975,
+      "tpr_pct": 71.6,
+      "tpr_minus_fpr": 33.55142735406902,
+      "fpr_2017_pct": 0.0,
+      "seed": 1024
+    },
+    {
+      "prepeak_china_2015": 0.7913687391371698,
+      "prepeak_covid": 0.9929374131421413,
+      "prepeak_inflation_2022": 0.9990942473972141,
+      "prepeak_hormuz_2025": 0.9998380865528632,
+      "fpr_pct": 37.57988922028121,
+      "tpr_pct": 71.8,
+      "tpr_minus_fpr": 34.22011077971879,
+      "fpr_2017_pct": 0.0,
+      "seed": 2048
+    },
+    {
+      "prepeak_china_2015": 0.7941028644288229,
+      "prepeak_covid": 0.9967690141599315,
+      "prepeak_inflation_2022": 0.9991185613762661,
+      "prepeak_hormuz_2025": 0.9998220565347474,
+      "fpr_pct": 38.09118023008096,
+      "tpr_pct": 72.0,
+      "tpr_minus_fpr": 33.90881976991904,
+      "fpr_2017_pct": 0.0,
+      "seed": 4096
+    }
+  ],
+  "shape_skew_spectral": [
+    {
+      "prepeak_china_2015": 0.9416767146615761,
+      "prepeak_covid": 0.9980206068861923,
+      "prepeak_inflation_2022": 0.998979300885876,
+      "prepeak_hormuz_2025": 0.9998129087047305,
+      "fpr_pct": 35.91819343843204,
+      "tpr_pct": 77.4,
+      "tpr_minus_fpr": 41.481806561567964,
+      "fpr_2017_pct": 0.0,
+      "seed": 42
+    },
+    {
+      "prepeak_china_2015": 0.9432791478317369,
+      "prepeak_covid": 0.9981379636390001,
+      "prepeak_inflation_2022": 0.9991595031224052,
+      "prepeak_hormuz_2025": 0.9998257119842598,
+      "fpr_pct": 35.61994034938219,
+      "tpr_pct": 77.8,
+      "tpr_minus_fpr": 42.18005965061781,
+      "fpr_2017_pct": 0.0,
+      "seed": 7
+    },
+    {
+      "prepeak_china_2015": 0.9484754496617414,
+      "prepeak_covid": 0.9991321421890145,
+      "prepeak_inflation_2022": 0.9992441662298919,
+      "prepeak_hormuz_2025": 0.9998720722783042,
+      "fpr_pct": 35.83297827013208,
+      "tpr_pct": 77.8,
+      "tpr_minus_fpr": 41.967021729867916,
+      "fpr_2017_pct": 0.0,
+      "seed": 13
+    },
+    {
+      "prepeak_china_2015": 0.9466457773827283,
+      "prepeak_covid": 0.9986507829613308,
+      "prepeak_inflation_2022": 0.9985939301933129,
+      "prepeak_hormuz_2025": 0.9998280253366122,
+      "fpr_pct": 35.790370685982104,
+      "tpr_pct": 77.4,
+      "tpr_minus_fpr": 41.6096293140179,
+      "fpr_2017_pct": 0.0,
+      "seed": 99
+    },
+    {
+      "prepeak_china_2015": 0.9344365868592192,
+      "prepeak_covid": 0.998626890749511,
+      "prepeak_inflation_2022": 0.9989917744323987,
+      "prepeak_hormuz_2025": 0.9998670792465121,
+      "fpr_pct": 36.34426927993183,
+      "tpr_pct": 77.4,
+      "tpr_minus_fpr": 41.055730720068176,
+      "fpr_2017_pct": 0.0,
+      "seed": 123
+    },
+    {
+      "prepeak_china_2015": 0.9409259814109445,
+      "prepeak_covid": 0.9977202727164874,
+      "prepeak_inflation_2022": 0.9991730708866458,
+      "prepeak_hormuz_2025": 0.9998909977666196,
+      "fpr_pct": 35.66254793353217,
+      "tpr_pct": 77.0,
+      "tpr_minus_fpr": 41.33745206646783,
+      "fpr_2017_pct": 0.0,
+      "seed": 256
+    },
+    {
+      "prepeak_china_2015": 0.9376217645610009,
+      "prepeak_covid": 0.998061931083974,
+      "prepeak_inflation_2022": 0.9989987872659218,
+      "prepeak_hormuz_2025": 0.9998971571780573,
+      "fpr_pct": 35.49211759693225,
+      "tpr_pct": 77.4,
+      "tpr_minus_fpr": 41.90788240306775,
+      "fpr_2017_pct": 0.0,
+      "seed": 512
+    },
+    {
+      "prepeak_china_2015": 0.9453820125420996,
+      "prepeak_covid": 0.9981325741488871,
+      "prepeak_inflation_2022": 0.9991903385290594,
+      "prepeak_hormuz_2025": 0.999919573670911,
+      "fpr_pct": 35.66254793353217,
+      "tpr_pct": 77.60000000000001,
+      "tpr_minus_fpr": 41.93745206646784,
+      "fpr_2017_pct": 0.0,
+      "seed": 1024
+    },
+    {
+      "prepeak_china_2015": 0.927587821051677,
+      "prepeak_covid": 0.9979622931260703,
+      "prepeak_inflation_2022": 0.9984730893962274,
+      "prepeak_hormuz_2025": 0.9998621441961628,
+      "fpr_pct": 35.705155517682144,
+      "tpr_pct": 77.0,
+      "tpr_minus_fpr": 41.294844482317856,
+      "fpr_2017_pct": 0.0,
+      "seed": 2048
+    },
+    {
+      "prepeak_china_2015": 0.9404215838686671,
+      "prepeak_covid": 0.9982536000273114,
+      "prepeak_inflation_2022": 0.998727873778081,
+      "prepeak_hormuz_2025": 0.9998734351217977,
+      "fpr_pct": 35.91819343843204,
+      "tpr_pct": 77.0,
+      "tpr_minus_fpr": 41.08180656156796,
+      "fpr_2017_pct": 0.0,
+      "seed": 4096
+    }
+  ]
+}
