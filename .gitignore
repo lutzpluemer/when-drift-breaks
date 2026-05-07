@@ -216,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# === When Drift Breaks: project-specific ignores ===
+
+# Sensitive credentials
+.env
+.env.local
+*_credentials.json
+*api_key*
+
+# Local data caches not suitable for version control
+data/eodhd/
+data/_finalized/
+data/seed_results/
+*.parquet.bak
+
+# Notebook outputs (clear before commit)
+.ipynb_checkpoints/
+notebooks/*.ipynb_checkpoints/
+
+# Drive-Mount-Artefakte (Colab-spezifisch)
+/content/
+
+# Local IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-Files
+.DS_Store
+Thumbs.db
