@@ -77,12 +77,52 @@ class NothungParticleFilter:
         injection_fraction: float = 0.05,
         ess_threshold: float = 0.5,
         obs_sigma: float = 2.0,
+        likelihood_mode: str = "kNN",
+        rf_lambda: float = 0.5,
+        rf_temperature: float = 2.0,
+        rf_floor: float = 0.005,
     ):
+        """
+        Parameters
+        ----------
+        likelihood_mode : {'kNN', 'mix', 'RF'}
+            Observation likelihood backend.
+            * ``'kNN'`` (default, backward compatible): per-regime likelihood
+              ``exp(-d_r^2 / (2*sigma^2))`` using k-NN distance to cluster cores.
+            * ``'mix'``: convex combination of kNN and RF posteriors:
+              ``L(r) = lambda * L_kNN(r) + (1-lambda) * L_RF(r)``.
+              Following Grisetti et al.'s informed-likelihood approach in
+              robotic mapping: a discriminative classifier (RF, "smart sensor")
+              augments the generative geometric likelihood (kNN to cores).
+            * ``'RF'``: pure RF likelihood (kNN ignored). Diagnostic mode only;
+              produces high false-positive rate in flat-volatility regimes.
+        rf_lambda : float
+            Mixture weight on the kNN component when ``likelihood_mode='mix'``.
+            ``1.0`` recovers ``'kNN'`` mode; ``0.0`` recovers ``'RF'`` mode.
+            Default 0.5 (equal weighting).
+        rf_temperature : float
+            Temperature used to soften RF posteriors before they enter the
+            likelihood: ``L_RF(r) ~ p_RF(r)^(1/T)``. Larger ``T`` -> flatter
+            distribution (less peaked). Default 2.0 prevents single-class
+            collapse when RF is over-confident.
+        rf_floor : float
+            Minimum value clipped onto each per-regime RF likelihood after
+            softening. Prevents particles in low-probability regimes from
+            getting zero weight. Default 0.005.
+        """
         self.N = n_particles
         self.K = n_regimes
         self.injection_fraction = injection_fraction
         self.ess_threshold = ess_threshold
         self.obs_sigma = obs_sigma
+        if likelihood_mode not in ("kNN", "mix", "RF"):
+            raise ValueError(
+                f"likelihood_mode must be 'kNN', 'mix', or 'RF'; got {likelihood_mode!r}"
+            )
+        self.likelihood_mode = likelihood_mode
+        self.rf_lambda = float(rf_lambda)
+        self.rf_temperature = float(rf_temperature)
+        self.rf_floor = float(rf_floor)
 
         # State tensors -- allocated by initialize()
         self.regimes: np.ndarray | None = None
@@ -123,7 +163,8 @@ class NothungParticleFilter:
     # One filter step
     # ------------------------------------------------------------------
 
-    def step(self, distances: dict[int, float]) -> np.ndarray:
+    def step(self, distances: dict[int, float],
+             rf_probs: np.ndarray | None = None) -> np.ndarray:
         """
         One full filter step: propagate, update, eta-update, optionally
         inject and resample.
@@ -132,6 +173,10 @@ class NothungParticleFilter:
         ----------
         distances : dict
             ``{regime_id: distance}`` from the observation model.
+        rf_probs : np.ndarray, optional
+            Per-regime posterior from the random-forest classifier, shape
+            ``(n_regimes,)``. Required when ``likelihood_mode != 'kNN'``.
+            Ignored otherwise. Should sum to 1.0.
 
         Returns
         -------
@@ -139,7 +184,7 @@ class NothungParticleFilter:
             Posterior regime probabilities, shape ``(n_regimes,)``.
         """
         self.propagate()
-        self.update(distances)
+        self.update(distances, rf_probs=rf_probs)
         self.update_eta(distances)
 
         # Compute ESS; if too low, do informed injection then resample.
@@ -207,27 +252,77 @@ class NothungParticleFilter:
     # Observation update
     # ------------------------------------------------------------------
 
-    def update(self, distances: dict[int, float]) -> None:
+    def update(self, distances: dict[int, float],
+               rf_probs: np.ndarray | None = None) -> None:
         """
         Importance-weight particles by their observation likelihood.
 
-        Likelihood for a particle in regime ``r`` is
+        Three modes (selected via ``likelihood_mode`` at init):
 
-            ``p(y | r) ∝ exp(-d_r^2 / (2 obs_sigma^2))``
+        * ``'kNN'`` (default): generative likelihood
+          ``L_kNN(r) = exp(-d_r^2 / (2 * obs_sigma^2))``,
+          where ``d_r`` is the median k-NN distance to regime r's cores.
+          This is the original Mai-2026 pipeline.
 
-        where ``d_r`` is the median k-NN distance to regime r's cores.
-        Missing distances are imputed by the maximum across regimes plus a
-        small slack, so that particles in regimes with no coverage are
-        appropriately downweighted.
+        * ``'mix'``: convex combination of kNN and RF posteriors,
+          following the informed-likelihood approach of Grisetti et al.
+          in robotic mapping (the RF acts as a "smart sensor"):
+          ``L(r) = lambda * L_kNN_norm(r) + (1-lambda) * L_RF(r)``.
+          The kNN component is normalised across regimes so the two
+          terms have comparable scale; RF posteriors are softened by
+          ``rf_temperature`` to prevent single-class collapse.
+
+        * ``'RF'``: discriminative-only likelihood (kNN ignored).
+
+        Per-particle likelihood is then ``L(regime_of_particle)``.
+        Missing kNN distances are imputed by the maximum-plus-slack rule.
         """
         max_d = max(distances.values()) if distances else 1.0
-        likelihoods = np.zeros(self.N)
         sigma2 = 2.0 * self.obs_sigma ** 2
 
-        for i in range(self.N):
-            r = int(self.regimes[i])
+        # Always compute kNN per-regime likelihood (needed for kNN and mix modes).
+        l_knn = np.zeros(self.K)
+        for r in range(self.K):
             d_r = distances.get(r, max_d * 1.5)
-            likelihoods[i] = np.exp(-(d_r ** 2) / sigma2)
+            l_knn[r] = np.exp(-(d_r ** 2) / sigma2)
+
+        if self.likelihood_mode == "kNN":
+            # Original pipeline: per-particle exp(-d^2 / 2 sigma^2), no normalisation.
+            likelihoods = np.zeros(self.N)
+            for i in range(self.N):
+                likelihoods[i] = l_knn[int(self.regimes[i])]
+        else:
+            # mix or RF: need RF posteriors and normalised likelihoods.
+            if rf_probs is None:
+                raise ValueError(
+                    f"likelihood_mode={self.likelihood_mode!r} requires rf_probs."
+                )
+            rf_probs = np.asarray(rf_probs, dtype=float)
+            if rf_probs.shape != (self.K,):
+                raise ValueError(
+                    f"rf_probs must have shape ({self.K},); got {rf_probs.shape}."
+                )
+
+            # Normalise kNN to a proper categorical likelihood.
+            l_knn_sum = l_knn.sum()
+            if l_knn_sum > 0:
+                l_knn_norm = l_knn / l_knn_sum
+            else:
+                l_knn_norm = np.ones(self.K) / self.K
+
+            # Soften RF posteriors via temperature, then floor + renormalise.
+            rf_soft = np.maximum(rf_probs, 1e-12) ** (1.0 / self.rf_temperature)
+            rf_soft = rf_soft / rf_soft.sum()
+            rf_soft = np.maximum(rf_soft, self.rf_floor)
+            rf_soft = rf_soft / rf_soft.sum()
+
+            if self.likelihood_mode == "mix":
+                lam = self.rf_lambda
+                l_per_regime = lam * l_knn_norm + (1.0 - lam) * rf_soft
+            else:  # 'RF'
+                l_per_regime = rf_soft
+
+            likelihoods = l_per_regime[self.regimes.astype(int)]
 
         new_w = self.weights * likelihoods
         total = new_w.sum()
