@@ -1,8 +1,8 @@
-# When Drift Breaks
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/e1d1f940-74c6-453f-bc26-7f6339559667" /><img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/d34ae1b2-94b9-422e-899c-359262572635" /><img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/00c00945-4f17-4893-9a06-6d1613446fab" /># When Drift Breaks
 
 Companion code for the paper
 
-> *When Drift Breaks: Distributional Shape Deformation as a Crisis Detector*
+> *When Drift Breaks: Particle-Based Regime Inference for Crash Detection*
 > Lutz Plümer (2026), manuscript under preparation.
 
 The repository contains the full pipeline used to produce the main result table of the paper, plus the data needed to reproduce it from a public source.
@@ -76,7 +76,7 @@ Data redistributed from Yahoo Finance under their terms of use.
 ```bibtex
 @unpublished{pluemer2026drift,
   author = {Plümer, Lutz},
-  title  = {When Drift Breaks: Distributional Shape Deformation as a Crisis Detector},
+  title  = {When Drift Breaks: Particle-Based Regime Inference for Crash Detection},
   year   = {2026},
   note   = {Manuscript under preparation}
 }
