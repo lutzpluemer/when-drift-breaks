@@ -41,11 +41,31 @@ python reproduce/reproduce_main_results.py --mode quick \
     --seed-results-dir data/seed_results
 ```
 
-Run the full pipeline from raw data (takes ~3.5 hours):
+Regenerate the headline numbers from the *frozen* model -- this loads the
+calibrated codebook and feature matrix, then re-runs the particle filter over
+all seeds (a few minutes per seed):
+
+```bash
+python reproduce/reproduce_main_results.py --mode replay
+```
+
+This is the recommended way to verify the published figures: the clustering
+layer is *loaded*, not re-estimated, so the result reproduces the paper to the
+reported precision (FPR 2017 = 0.0, TPR-FPR ~ 41.8).
+
+Rebuild everything from raw data (advanced; takes ~3.5 hours):
 
 ```bash
 python reproduce/reproduce_main_results.py --mode full --source yahoo
 ```
+
+> **Note.** `--mode full` re-fits the clustering layer from scratch on freshly
+> downloaded data. Because the regime codebook is re-estimated, the absolute
+> figures can differ from the published table -- small changes in the input
+> series propagate through the k-means labelling. For an exact reproduction of
+> the paper, use `--mode quick` (cached seed results) or `--mode replay`
+> (frozen codebook). `--mode full` is provided for transparency of the full
+> pipeline, not as the canonical reproduction path.
 
 ## Three nested feature configurations
 

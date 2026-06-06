@@ -64,6 +64,14 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+# Make the local ``teiresias`` package importable regardless of how this
+# script is launched.  Running ``python reproduce/reproduce_main_results.py``
+# puts the *script* directory (reproduce/) on sys.path, not the repo root,
+# so ``import teiresias`` would fail.  Insert the repo root explicitly.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 # ---------------------------------------------------------------------------
 # Pipeline configuration
 # ---------------------------------------------------------------------------
@@ -398,12 +406,58 @@ def load_seed_results(seed_results_dir: str,
 # Main entry point
 # ---------------------------------------------------------------------------
 
+def run_replay(karte_path: str, features_path: str,
+               seeds=DEFAULT_SEEDS, n_particles: int = 2000) -> dict[str, pd.DataFrame]:
+    """
+    Replay mode: reproduce the headline (full 63-feature) result from the
+    *frozen* Nothung map and the *frozen* feature matrix, without re-fitting
+    the clustering layer.  The particle filter is re-run from scratch over
+    every seed, but the codebook is loaded rather than re-estimated, so the
+    published numbers are reproduced exactly (up to PF seed variation).
+    """
+    import pickle
+
+    with open(karte_path, "rb") as fh:
+        karte = pickle.load(fh)
+
+    feats = pd.read_parquet(features_path)
+    feats.index = pd.to_datetime(feats.index)
+    cols = karte["feature_cols"]
+    missing = [c for c in cols if c not in feats.columns]
+    if missing:
+        raise KeyError(
+            f"Feature matrix is missing {len(missing)} karte columns, "
+            f"e.g. {missing[:5]}"
+        )
+    feats_test = feats.loc[TEST_START:TEST_END, cols]
+    print(
+        f"[replay] {len(cols)} features | "
+        f"test {feats_test.index.min().date()}..{feats_test.index.max().date()} "
+        f"({len(feats_test)} days) | {len(seeds)} seeds"
+    )
+
+    records = []
+    for sd in seeds:
+        pf_df = run_pf(feats_test, karte, n_particles=n_particles, seed=sd)
+        m = _crisis_metrics(pf_df)
+        m["seed"] = sd
+        records.append(m)
+        print(
+            f"  seed {sd:>5d}: china {m['prepeak_china_2015']:.3f}  "
+            f"covid {m['prepeak_covid']:.3f}  infl {m['prepeak_inflation_2022']:.3f}  "
+            f"hormuz {m['prepeak_hormuz_2025']:.3f}  "
+            f"TPR-FPR {m['tpr_minus_fpr']:.2f}  FPR2017 {m['fpr_2017_pct']:.2f}"
+        )
+
+    return {"Shape+Skew+Spectral (replay)": pd.DataFrame(records)}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Reproduce the main result table of the Teiresias paper."
     )
     parser.add_argument(
-        "--mode", choices=["full", "quick"], default="full",
+        "--mode", choices=["full", "quick", "replay"], default="full",
         help="full: run the full pipeline (hours).  quick: load cached "
              "seed results and just print the table (seconds).",
     )
@@ -426,6 +480,14 @@ def main(argv: list[str] | None = None) -> int:
         help="Data source for the live fetch path.",
     )
     parser.add_argument(
+        "--karte", default="./data/snapshot_mai/models/karte_D4.pkl",
+        help="Frozen Nothung map (pickle), used by --mode replay.",
+    )
+    parser.add_argument(
+        "--features", default="./data/snapshot_mai/features/features_D4.parquet",
+        help="Frozen feature matrix (parquet), used by --mode replay.",
+    )
+    parser.add_argument(
         "--seeds", type=int, nargs="+", default=DEFAULT_SEEDS,
         help="PF random seeds (default: 10 mixed seeds).",
     )
@@ -439,6 +501,15 @@ def main(argv: list[str] | None = None) -> int:
              "and a JSON summary.",
     )
     args = parser.parse_args(argv)
+
+    # ---- Replay mode -------------------------------------------------
+    if args.mode == "replay":
+        print(f"[replay mode] karte    = {args.karte}")
+        print(f"[replay mode] features = {args.features}")
+        results = run_replay(args.karte, args.features,
+                             seeds=args.seeds, n_particles=args.n_particles)
+        print_results_table(results)
+        return 0
 
     # ---- Quick mode --------------------------------------------------
     if args.mode == "quick":
