@@ -24,7 +24,7 @@ The repository contains the full pipeline used to produce the main result table 
   - `reproduce_main_results.py` — end-to-end pipeline
 - `data/`
   - `yahoo/` — SPY, SKEW, 9 sector ETFs (Yahoo Finance)
-- - `main_v16.tex`, `references.bib`, `figure1_precursors.pdf`, `figure2_separation.pdf` — LaTeX manuscript source
+- `figure1_precursors.pdf`, `figure2_separation.pdf` -- main paper figures
 
 ## Quickstart
 
