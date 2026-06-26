@@ -4,8 +4,8 @@ reproduce_main_results.py
 
 End-to-end reproduction script for the main result table of
 
-    Plümer, L. (2026).  When Drift Breaks: Particle-Based Regime Inference
-    for Crash Detection.  ICCF26, Oxford.
+    Plümer, L. (2026).  When Drift Breaks: Particle-Based Real-Time Regime
+    Detection.
 
 The script runs three nested feature configurations:
 
