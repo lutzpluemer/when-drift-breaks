@@ -2,11 +2,10 @@
 teiresias
 =========
 
-Particle-based regime inference for crash detection in financial time series.
+Particle-based real-time regime detection in financial time series.
 
 This package implements the pipeline described in *When Drift Breaks:
-Particle-Based Regime Inference for Crash Detection* (Plümer 2026,
-ICCF26 Oxford).  It has three layers:
+Particle-Based Real-Time Regime Detection* (Plümer 2026).  It has three layers:
 
 1.  **Map construction** -- multi-window distributional shape features
     plus k-means codebook plus random-forest soft classifier plus Viterbi
@@ -21,14 +20,14 @@ ICCF26 Oxford).  It has three layers:
 3.  **Evaluation and persistence** -- separability, lead-time, save/load.
     See :mod:`teiresias.evaluation`, :mod:`teiresias.persistence`.
 
-A typical end-to-end workflow lives in ``notebooks/example_spy.ipynb``.
+A typical end-to-end workflow lives in ``notebooks/00_reproduce_results.ipynb``.
 
 Citation
 --------
-Plümer, L. (2026). When Drift Breaks: Particle-Based Regime Inference for
-Crash Detection.  ICCF26, Oxford.
+Plümer, L. (2026). When Drift Breaks: Particle-Based Real-Time Regime
+Detection.
 
-Code repository: https://github.com/lutzpluemer/teiresias-paper1
+Code repository: https://github.com/lutzpluemer/when-drift-breaks
 """
 
 from __future__ import annotations
