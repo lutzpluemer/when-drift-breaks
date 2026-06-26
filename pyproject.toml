@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "teiresias"
 version = "1.0.0"
-description = "Particle-based regime inference for crash detection in financial time series"
+description = "Particle-based real-time regime detection in financial time series"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
@@ -15,7 +15,7 @@ keywords = [
     "particle filter",
     "regime detection",
     "distributional shape",
-    "financial crash detection",
+    "real-time regime detection",
     "probabilistic robotics",
 ]
 classifiers = [
@@ -47,9 +47,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/lutzpluemer/teiresias-paper1"
-Repository = "https://github.com/lutzpluemer/teiresias-paper1"
-Issues = "https://github.com/lutzpluemer/teiresias-paper1/issues"
+Homepage = "https://github.com/lutzpluemer/when-drift-breaks"
+Repository = "https://github.com/lutzpluemer/when-drift-breaks"
+Issues = "https://github.com/lutzpluemer/when-drift-breaks/issues"
 
 [tool.setuptools.packages.find]
 include = ["teiresias*"]
