@@ -2,8 +2,8 @@
 
 Companion code for the paper
 
-> *When Drift Breaks: Particle-Based Regime Inference for Crash Detection*
-> Lutz Plümer (2026), manuscript under preparation.
+> *When Drift Breaks: Particle-Based Real-Time Regime Detection*
+> Lutz Plümer (2026), manuscript submitted for publication.
 
 The repository contains the full pipeline used to produce the main result table of the paper, plus the data needed to reproduce it from a public source.
 
@@ -14,7 +14,7 @@ The repository contains the full pipeline used to produce the main result table 
   - `loss_dynamics.py` — drawdown / time-in-drawdown / tail rate
   - `spectral.py` — cross-sectional eigenvalue features
   - `clustering.py` — k-means + Viterbi label generation
-  - `observation.py` — k-NN observation model
+  - `observation.py` — core-distance (kernelized) observation model
   - `particle_filter.py` — Rao-Blackwellized particle filter
   - `regimes.py` — 7-regime taxonomy
   - `transitions.py` — HSMM transition matrix
@@ -85,7 +85,7 @@ All data in `data/yahoo/` was downloaded from Yahoo Finance using `yfinance` wit
 
 ## License
 
-Code: MIT (to be added).
+Code: MIT (see `LICENSE`).
 
 Data redistributed from Yahoo Finance under their terms of use.
 
@@ -94,8 +94,8 @@ Data redistributed from Yahoo Finance under their terms of use.
 ```bibtex
 @unpublished{pluemer2026drift,
   author = {Plümer, Lutz},
-  title  = {When Drift Breaks: Particle-Based Regime Inference for Crash Detection},
+  title  = {When Drift Breaks: Particle-Based Real-Time Regime Detection},
   year   = {2026},
-  note   = {Manuscript under preparation}
+  note   = {Manuscript submitted for publication}
 }
 ```
