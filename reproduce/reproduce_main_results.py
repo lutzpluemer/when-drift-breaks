@@ -164,7 +164,7 @@ def run_pf(features_test: pd.DataFrame, karte: dict,
         row["eta"]    = float(h["eta"])
         row["ess"]    = float(h["ess"])
         row["p_max"]  = float(regime_probs.max())
-        row["p_warn"] = float(regime_probs[3] + regime_probs[4] + regime_probs[5])
+        row["p_warn"] = float(regime_probs[2] + regime_probs[3] + regime_probs[4] + regime_probs[5])
         rows.append(row)
 
     return pd.DataFrame(rows).set_index("date")
