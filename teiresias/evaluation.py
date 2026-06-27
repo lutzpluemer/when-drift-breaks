@@ -91,7 +91,7 @@ def compute_lead_time_soft(
     crash_date : pd.Timestamp
         Reference event.
     warning_regimes : list[str]
-        Columns to sum (e.g. ``['Stress', 'Bear', 'Crisis']``).
+        Columns to sum (e.g. ``['Stress', 'Correction', 'Bear', 'Crisis']``).
     threshold : float
         Warning threshold.
 
